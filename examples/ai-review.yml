@@ -25,7 +25,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
-      - uses: OWNER/code-review-agent@v1
+      - uses: gurusanjay2322/code-review-agent@v1
         with:
           cursor-api-key: ${{ secrets.CURSOR_API_KEY }}
           # model: composer-2.5
