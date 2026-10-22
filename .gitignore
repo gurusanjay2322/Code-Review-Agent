@@ -1,0 +1,6 @@
+.env
+secrets/
+*.pem
+node_modules/
+gateway/bin/
+coverage/

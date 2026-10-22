@@ -1,0 +1,48 @@
+```json
+{
+  "findings": [
+    {
+      "path": "store/user.go",
+      "line": 9,
+      "endLine": 10,
+      "severity": "critical",
+      "category": "security",
+      "title": "SQL injection via fmt.Sprintf",
+      "explanation": "The name parameter is interpolated directly into the SQL string, so a crafted name can alter the query.",
+      "evidence": "    9 +| \tq := fmt.Sprintf(\"SELECT id, name FROM users WHERE name = '%s'\", name)\n   10 +| \trow := db.QueryRow(q)",
+      "suggestion": "\trow := db.QueryRow(\"SELECT id, name FROM users WHERE name = $1\", name)",
+      "confidence": 0.97
+    },
+    {
+      "path": "store/user.go",
+      "line": 12,
+      "severity": "Medium",
+      "category": "perf",
+      "title": "Scan error is returned without context",
+      "explanation": "Wrapping errors helps debugging.",
+      "evidence": "return nil, err",
+      "confidence": 1.4
+    },
+    {
+      "path": "store/other.go",
+      "line": 3,
+      "severity": "high",
+      "category": "bug",
+      "title": "File not in this chunk",
+      "explanation": "Should be dropped.",
+      "evidence": "x",
+      "confidence": 0.9
+    },
+    {
+      "path": "store/user.go",
+      "line": 5,
+      "severity": "low",
+      "category": "style",
+      "title": "Import grouping",
+      "explanation": "Style findings are not allowed.",
+      "evidence": "\"fmt\"",
+      "confidence": 0.5
+    }
+  ]
+}
+```

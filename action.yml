@@ -1,0 +1,57 @@
+name: Cursor AI code review
+description: Reviews pull requests for bugs, security, logic and performance issues using your Cursor API key, and posts validated inline comments.
+author: code-review-agent
+branding:
+  icon: eye
+  color: blue
+
+inputs:
+  cursor-api-key:
+    description: Cursor API key (Cursor Dashboard -> Integrations). Store it as a repository secret.
+    required: true
+  github-token:
+    description: Token used to read the PR and post the review. Needs pull-requests write and contents read.
+    required: false
+    default: ${{ github.token }}
+  model:
+    description: Cursor model ID.
+    required: false
+    default: composer-2.5
+  max-comments:
+    description: Maximum inline comments per run; the rest go into the summary.
+    required: false
+    default: "15"
+  min-confidence:
+    description: Drop findings below this model confidence (0 to 1).
+    required: false
+    default: "0.6"
+  min-severity:
+    description: Lowest severity to report (low, medium, high, critical).
+    required: false
+    default: low
+  verify:
+    description: Ask the model to double-check high and critical findings before posting.
+    required: false
+    default: "true"
+  max-total-tokens:
+    description: Approximate cap on prompt tokens per run, to bound usage on your Cursor plan.
+    required: false
+    default: "60000"
+  max-files:
+    description: Maximum number of files reviewed per run.
+    required: false
+    default: "50"
+  concurrency:
+    description: Parallel model calls.
+    required: false
+    default: "2"
+  fail-on:
+    description: Fail the job when findings at or above this severity are posted (none, low, medium, high, critical).
+    required: false
+    default: none
+
+runs:
+  using: docker
+  # Swap to `docker://ghcr.io/OWNER/code-review-agent:v1` after the release workflow publishes
+  # the image; that skips the per-run build.
+  image: Dockerfile

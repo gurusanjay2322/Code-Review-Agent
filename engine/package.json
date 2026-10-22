@@ -1,0 +1,21 @@
+{
+  "name": "code-review-engine",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "engine-cli": "node src/cli.js",
+    "test": "node --test \"test/**/*.test.js\""
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@cursor/sdk": "^1.0.40",
+    "@google/genai": "^2.30.0",
+    "fastify": "^5.12.7"
+  }
+}

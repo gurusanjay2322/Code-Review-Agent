@@ -1,0 +1,47 @@
+services:
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+
+  engine:
+    build: ./engine
+    env_file: .env
+    environment:
+      ENGINE_PORT: "8090"
+    ports:
+      - "8090:8090"
+
+  gateway:
+    build: ./gateway
+    command: ["/app/server"]
+    env_file: .env
+    environment:
+      REDIS_URL: redis://redis:6379/0
+      GATEWAY_ADDR: ":8080"
+      GITHUB_PRIVATE_KEY_PATH: /secrets/github-app.pem
+    volumes:
+      - ./secrets:/secrets:ro
+    ports:
+      - "8080:8080"
+    depends_on:
+      - redis
+
+  worker:
+    build: ./gateway
+    command: ["/app/worker"]
+    env_file: .env
+    environment:
+      REDIS_URL: redis://redis:6379/0
+      ENGINE_URL: http://engine:8090
+      GITHUB_PRIVATE_KEY_PATH: /secrets/github-app.pem
+    volumes:
+      - ./secrets:/secrets:ro
+    depends_on:
+      - redis
+      - engine
+
+volumes:
+  redis-data:
