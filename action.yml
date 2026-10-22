@@ -1,5 +1,5 @@
 name: Cursor AI code review
-description: Reviews pull requests for bugs, security, logic and performance issues using your Cursor API key, and posts validated inline comments.
+description: AI review of pull requests for bugs, security, logic and performance issues, using your Cursor API key.
 author: code-review-agent
 branding:
   icon: eye
