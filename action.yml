@@ -52,6 +52,6 @@ inputs:
 
 runs:
   using: docker
-  # Swap to `docker://ghcr.io/OWNER/code-review-agent:v1` after the release workflow publishes
-  # the image; that skips the per-run build.
+  # Built on each run. To skip the build, publish the image to GHCR from a separate repo and
+  # point this at `docker://ghcr.io/gurusanjay2322/code-review-agent:v1`.
   image: Dockerfile
